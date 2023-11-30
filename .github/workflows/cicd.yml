@@ -29,5 +29,9 @@ jobs:
 
       - name: Run linting tools
         run: |
-          flake8 .
+          flake8 
+      - name: Coverage Report
+        run: |
+          coverage run manage.py test
+          coverage html
           
