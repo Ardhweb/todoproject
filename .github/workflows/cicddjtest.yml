@@ -1,0 +1,37 @@
+name: CI/CD for Django Test 
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+      branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirments.text
+
+      - name: Run unit tests
+        run: |
+          python manage.py test
+
+      - name: Run linting tools
+        run: |
+          flake8 
+      - name: Coverage Report
+        run: |
+          coverage run manage.py test
+          coverage html
+          
